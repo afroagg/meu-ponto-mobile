@@ -8,6 +8,8 @@ import {distanciaMetros, textoDistancia, limparRua} from "../services/util";
 import Creditos from "../components/Creditos";
 import cores from "../cores";
 
+const DISTANCIA_MAXIMA = 2000;
+
 export default function ListaScreen({navigation}) {
   const [pontos, setPontos] = useState([]);
   const [busca, setBusca] = useState("");
@@ -20,14 +22,17 @@ export default function ListaScreen({navigation}) {
   }, []);
 
   function organizar(lista, local) {
-    const comDistancia = lista.map((p) => ({
-      ...p,
-      distancia: local ? distanciaMetros(local.latitude, local.longitude, p.py, p.px) : null,
-    }));
+    lista.forEach((p) => {
+      if (local) {
+        p.distancia = distanciaMetros(local.latitude, local.longitude, p.py, p.px);
+      } else {
+        p.distancia = null;
+      }
+    });
     if (local) {
-      comDistancia.sort((a, b) => a.distancia - b.distancia);
+      lista.sort((a, b) => a.distancia - b.distancia);
     }
-    return comDistancia.slice(0, 15);
+    return lista.slice(0, 15);
   }
 
   async function buscarPorGps() {
@@ -64,12 +69,17 @@ export default function ListaScreen({navigation}) {
         lista = await buscarPontos(palavras[palavras.length - 1]);
       }
 
-      if (lista.length === 0) {
-        setMensagem("Nenhum ponto encontrado perto de " + rua + ". Tente buscar pelo nome da rua.");
+      const ordenados = organizar(lista, local);
+      if (ordenados.length === 0) {
+        setMensagem("Nenhum ponto da SPTrans encontrado perto de " + rua + ". A API cobre só a cidade de São Paulo. Busque pelo nome de uma rua de lá.");
+        setPontos([]);
+      } else if (ordenados[0].distancia > DISTANCIA_MAXIMA) {
+        setMensagem("Nenhum ponto da SPTrans perto de você (o mais próximo está a " + textoDistancia(ordenados[0].distancia) + "). A API cobre só a cidade de São Paulo.");
+        setPontos([]);
       } else {
         setMensagem("Pontos perto de " + rua);
+        setPontos(ordenados);
       }
-      setPontos(organizar(lista, local));
     } catch (erro) {
       setMensagem("Erro: " + erro.message);
     }
