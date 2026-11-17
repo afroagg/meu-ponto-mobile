@@ -1,0 +1,19 @@
+Global Solution 2026.2 - Cross-Platform Application Development
+Projeto: Meu Ponto Mobile
+FIAP - 2CCPR
+
+Integrantes e divisão do trabalho:
+
+Agatha Carolina dos Santos Rodrigues - RM 568352
+- services/api.js (chamadas à API Olho Vivo pelo servidor do Vercel)
+- App.js (navegação), cores.js e components/Creditos.js (layout e visual do app)
+
+Arthur Casqueira Berthi - RM 568017
+- screens/ListaScreen.js (permissão de GPS com expo-location, busca por rua e lista de pontos)
+- services/util.js (cálculo de distância)
+- Testes no celular e gravação do vídeo
+
+João Dyonisio Dias Cruz de Medeiros Rocha - RM 567087
+- screens/DetalheScreen.js (previsão de chegada, ordenação por minutos e atualização automática)
+- Aviso com expo-notifications, Vibration e Alert
+- README.md
