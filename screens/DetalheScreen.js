@@ -45,15 +45,15 @@ export default function DetalheScreen({route}) {
         .filter((linha) => linha.vs.length > 0)
         .map((linha) => {
           const tempos = linha.vs.map((v) => minutosAte(v.t, dados.hr));
+          tempos.sort((a, b) => a - b);
           return {
             letreiro: linha.c,
             destino: linha.lt0,
             origem: linha.lt1,
-            minutos: Math.min(...tempos),
-            quantidade: linha.vs.length,
+            minutos: tempos[0],
             acessivel: linha.vs.some((v) => v.a),
           };
-        });
+        });  
       resultado.sort((a, b) => a.minutos - b.minutos);
 
       setLinhas(resultado);
@@ -133,7 +133,7 @@ export default function DetalheScreen({route}) {
     <View style={styles.container}>
       <Text style={styles.titulo}>{ponto.np}</Text>
       <Text style={styles.endereco}>{ponto.ed}</Text>
-      {ponto.distancia !== null && ponto.distancia !== undefined && (
+      {ponto.distancia !== null && (
         <Text style={styles.endereco}>Você está a {textoDistancia(ponto.distancia)} deste ponto</Text>
       )}
       {hora !== "" && <Text style={styles.endereco}>Atualizado às {hora} (a cada 30 segundos)</Text>}
