@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {
-  View, Text, TouchableOpacity, FlatList, Alert, Vibration, StyleSheet,
+  View, Text, TouchableOpacity, FlatList, Alert, Vibration, Switch, StyleSheet,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import {buscarPrevisao} from "../services/api";
@@ -16,6 +16,8 @@ export default function DetalheScreen({route}) {
   const [hora, setHora] = useState("");
   const [mensagem, setMensagem] = useState("Carregando...");
   const [avisando, setAvisando] = useState(null);
+  const [soAcessiveis, setSoAcessiveis] = useState(false);
+  const [atualizando, setAtualizando] = useState(false);
 
   useEffect(() => {
     carregar();
@@ -60,6 +62,12 @@ export default function DetalheScreen({route}) {
     } catch (erro) {
       setMensagem("Erro: " + erro.message);
     }
+  }
+
+  async function atualizar() {
+    setAtualizando(true);
+    await carregar();
+    setAtualizando(false);
   }
 
   async function ativarAviso(linha) {
@@ -119,6 +127,8 @@ export default function DetalheScreen({route}) {
     );
   }
 
+  const lista = soAcessiveis ? linhas.filter((l) => l.acessivel) : linhas;
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>{ponto.np}</Text>
@@ -132,12 +142,19 @@ export default function DetalheScreen({route}) {
         Toque em "Avisar" para receber uma notificação quando o ônibus estiver a {MINUTOS_AVISO} minutos do ponto.
       </Text>
 
+      <View style={styles.filtro}>
+        <Text style={styles.filtroTexto}>Só acessíveis</Text>
+        <Switch value={soAcessiveis} onValueChange={setSoAcessiveis} />
+      </View>
+
       {mensagem !== "" && <Text style={styles.mensagem}>{mensagem}</Text>}
 
       <FlatList
-        data={linhas}
+        data={lista}
         keyExtractor={(item) => item.letreiro}
         renderItem={mostrarLinha}
+        refreshing={atualizando}
+        onRefresh={atualizar}
         ListFooterComponent={<Creditos />}
       />
     </View>
@@ -149,6 +166,8 @@ const styles = StyleSheet.create({
   titulo: {fontSize: 20, fontWeight: "bold", color: cores.texto},
   endereco: {fontSize: 13, color: cores.textoClaro},
   dica: {marginTop: 10, fontSize: 13, color: cores.textoClaro},
+  filtro: {flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 10},
+  filtroTexto: {fontSize: 15, color: cores.texto},
   mensagem: {
     marginTop: 12,
     padding: 10,
