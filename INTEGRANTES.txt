@@ -1,19 +1,24 @@
-Global Solution 2026.2 - Cross-Platform Application Development
-Projeto: Meu Ponto Mobile
-FIAP - 2CCPR
+GS 2026.2 - Cross-Platform Application Development
+Projeto: Meu Ponto Mobile (API Olho Vivo / SPTrans)
+Turma: 2CCPR
 
-Integrantes e divisão do trabalho:
-
+Integrantes e o que cada um fez:
 Agatha Carolina dos Santos Rodrigues - RM 568352
-- services/api.js (chamadas à API Olho Vivo pelo servidor do Vercel)
-- App.js (navegação), cores.js e components/Creditos.js (layout e visual do app)
-
 Arthur Casqueira Berthi - RM 568017
-- screens/ListaScreen.js (permissão de GPS com expo-location, busca por rua e lista de pontos)
-- services/util.js (cálculo de distância)
-- Testes no celular e gravação do vídeo
-
 João Dyonisio Dias Cruz de Medeiros Rocha - RM 567087
-- screens/DetalheScreen.js (previsão de chegada, ordenação por minutos e atualização automática)
-- Aviso com expo-notifications, Vibration e Alert
-- README.md
+
+Agatha Carolina
+- services/api.js: chamadas à API Olho Vivo pelo servidor do Vercel
+- App.js e cores.js: navegação entre as telas, configuração das notificações e visual do app
+- components/Creditos.js: crédito dos dados da SPTrans
+- screens/DetalheScreen.js: filtro de ônibus acessíveis e puxar para atualizar
+
+João Dyonisio
+- screens/DetalheScreen.js: previsão de chegada, cálculo dos minutos, ordenação e atualização automática a cada 30 segundos
+- screens/DetalheScreen.js: aviso com notificação (expo-notifications), vibração e alerta
+
+Arthur
+- screens/ListaScreen.js: permissão de GPS (expo-location), busca da rua pelo GPS, busca por nome e lista de pontos
+- services/util.js: cálculo da distância até o ponto
+- Testes de uso no celular e gravação do vídeo
+- README.md e este arquivo

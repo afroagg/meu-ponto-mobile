@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { Platform } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {useEffect} from "react";
+import {Platform} from "react-native";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import * as Notifications from "expo-notifications";
 import ListaScreen from "./screens/ListaScreen";
 import DetalheScreen from "./screens/DetalheScreen";
@@ -32,13 +32,13 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: cores.verde },
+          headerStyle: {backgroundColor: cores.verde},
           headerTintColor: "#fff",
-          headerTitleStyle: { fontWeight: "bold" },
+          headerTitleStyle: {fontWeight: "bold"},
         }}
       >
-        <Stack.Screen name="Lista" component={ListaScreen} options={{ title: "Meu ponto" }} />
-        <Stack.Screen name="Detalhe" component={DetalheScreen} options={{ title: "Próximos ônibus" }} />
+        <Stack.Screen name="Lista" component={ListaScreen} options={{title: "Meu ponto"}} />
+        <Stack.Screen name="Detalhe" component={DetalheScreen} options={{title: "Próximos ônibus"}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import {
   View, Text, TouchableOpacity, FlatList, Alert, Vibration, StyleSheet,
 } from "react-native";
 import * as Notifications from "expo-notifications";
-import { buscarPrevisao } from "../services/api";
-import { minutosAte, textoMinutos, textoDistancia } from "../services/util";
+import {buscarPrevisao} from "../services/api";
+import {minutosAte, textoMinutos, textoDistancia} from "../services/util";
 import Creditos from "../components/Creditos";
 import cores from "../cores";
 
 const MINUTOS_AVISO = 5;
 
-export default function DetalheScreen({ route }) {
-  const { ponto } = route.params;
+export default function DetalheScreen({route}) {
+  const {ponto} = route.params;
   const [linhas, setLinhas] = useState([]);
   const [hora, setHora] = useState("");
   const [mensagem, setMensagem] = useState("Carregando...");
@@ -83,7 +83,7 @@ export default function DetalheScreen({ route }) {
     Vibration.vibrate([0, 500, 200, 500]);
     try {
       await Notifications.scheduleNotificationAsync({
-        content: { title: "Seu ônibus está chegando", body: texto },
+        content: {title: "Seu ônibus está chegando", body: texto},
         trigger: null,
       });
     } catch (erro) {
@@ -92,7 +92,7 @@ export default function DetalheScreen({ route }) {
     Alert.alert("Seu ônibus está chegando", texto);
   }
 
-  function mostrarLinha({ item }) {
+  function mostrarLinha({item}) {
     const ativo = avisando === item.letreiro;
     return (
       <View style={styles.linha}>

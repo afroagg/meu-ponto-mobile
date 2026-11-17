@@ -1,4 +1,4 @@
-import { Text, StyleSheet } from "react-native";
+import {Text, StyleSheet} from "react-native";
 import cores from "../cores";
 
 export default function Creditos() {

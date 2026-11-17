@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import {
   View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet,
 } from "react-native";
 import * as Location from "expo-location";
-import { buscarPontos } from "../services/api";
-import { distanciaMetros, textoDistancia, limparRua } from "../services/util";
+import {buscarPontos} from "../services/api";
+import {distanciaMetros, textoDistancia, limparRua} from "../services/util";
 import Creditos from "../components/Creditos";
 import cores from "../cores";
 
-export default function ListaScreen({ navigation }) {
+export default function ListaScreen({navigation}) {
   const [pontos, setPontos] = useState([]);
   const [busca, setBusca] = useState("");
   const [mensagem, setMensagem] = useState("");
@@ -96,9 +96,9 @@ export default function ListaScreen({ navigation }) {
     setCarregando(false);
   }
 
-  function mostrarPonto({ item }) {
+  function mostrarPonto({item}) {
     return (
-      <TouchableOpacity style={styles.ponto} onPress={() => navigation.navigate("Detalhe", { ponto: item })}>
+      <TouchableOpacity style={styles.ponto} onPress={() => navigation.navigate("Detalhe", {ponto: item})}>
         <View style={styles.pontoTexto}>
           <Text style={styles.nome}>{item.np}</Text>
           <Text style={styles.endereco}>{item.ed}</Text>
